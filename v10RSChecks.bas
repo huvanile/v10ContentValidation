@@ -7,7 +7,7 @@ Option Explicit
     '- column G: requirement element count
     '- column H: requirement statement
 Sub doRSChecks()
-    Range("k2:k" & lastUsedRow).ClearContents
+    'Range("k2:k" & lastUsedRow).ClearContents
     checkForMissingNumbers
     checkForExtraNumbers
     checkForDupeNumbers
@@ -130,17 +130,7 @@ Private Sub addToK(ByVal r As Integer, msg As String)
     Debug.Print r
 End Sub
 
-'PURPOSE: Removes element counts from requirement statements.
-    'ACCEPTS: A requirement statement
-    'RETURNS: A requirement statement without any element counts present
-Public Function stripElementCounts(str As String)
-    Dim i As Integer
-    Dim tmp As String: tmp = str
-    For i = 1 To 20
-        tmp = Replace(tmp, i & ")", "")
-        tmp = Replace(tmp, "  ", " ")
-    Next i
-End Function
+
 
 'PURPOSE: Removes parenthetical clauses from requirements. It also runs the requirement through the cleanRS function described below
     'ACCEPTS: A requirement statement
@@ -255,7 +245,8 @@ Public Function cleanRS(theRS As String, Optional shouldShallMust As Boolean = T
         tmp = removeBracketsAndNumbers(tmp, "[e.g.", "]")
         tmp = removeBracketsAndNumbers(tmp, "(i.e.", ")")
         tmp = removeBracketsAndNumbers(tmp, "(or ", ")")
-    ElseIf removeAllParens Then
+    End If
+    If removeAllParens Then
         tmp = removeBracketsAndNumbers(tmp, "(", ")")
         tmp = removeBracketsAndNumbers(tmp, "[", "]")
     End If
