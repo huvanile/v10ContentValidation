@@ -319,3 +319,16 @@ Private Function removeBracketsAndNumbers(myString As String, stStr As String, e
 oops:
     removeBracketsAndNumbers = myString
 End Function
+
+'~~~~~~~ SUPPORTING SUBROUTINES AND FUNCTIONS ~~~~~~~~
+Private Function lastUsedRow(Optional sheetName As String = "", Optional wb As String = "")
+    'find last used row
+    Dim lR As Long
+    If wb = "" Then wb = ActiveWorkbook.name
+    If sheetName = "" Then sheetName = ActiveSheet.name
+    lR = Workbooks(wb).Worksheets(sheetName).Range("A1").SpecialCells(xlCellTypeLastCell).Row
+    Do Until Application.WorksheetFunction.CountA(Workbooks(wb).Sheets(sheetName).Rows(lR)) > 0 Or lR = 1
+        lR = lR - 1
+    Loop
+    lastUsedRow = lR
+End Function
