@@ -21,7 +21,7 @@ Sub reconElementCounts()
         Application.StatusBar = "Comparing RID's element count to stated element count | On row " & cell.Row
         Dim splitholder: splitholder = Split(cell.Value, ".")
         Dim ridElementCount As Integer: ridElementCount = CInt(Trim(splitholder(UBound(splitholder))))
-        Dim statedElementCount As Integer: statedElementCount = CInt(Trim(Range("h" & cell.Row)))
+        Dim statedElementCount As Integer: statedElementCount = CInt(Trim(Range("g" & cell.Row)))
         If ridElementCount <> statedElementCount Then
             addToK cell.Row, "RID's element count (numbers after last dot) don't reconcile to stated element count"
         End If
@@ -36,10 +36,10 @@ Sub checkRIDDotsAndHyphens()
     For Each cell In Range("a2:a" & lastUsedRow)
         Application.StatusBar = "Checking RID hypen and dot count | On row " & cell.Row
         If Not cell.Value Like "*CONTRA*" Then
-            If Not Len(cell.Value) - Len(Replace(cell.Value, ".", "")) = 4 Then
+            If Not Len(cell.Value) - Len(Replace(cell.Value, ".", "")) = 3 Then
                 addToK cell.Row, "RID dot count is off"
             End If
-            If Not Len(cell.Value) - Len(Replace(cell.Value, "-", "")) = 2 Then
+            If Not Len(cell.Value) - Len(Replace(cell.Value, "-", "")) = 1 Then
                 addToK cell.Row, "RID hyphen count is off"
             End If
         End If
